@@ -1,17 +1,15 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:tractian/src/presentation/pages/home_page.dart';
 
 class TractianApp extends StatelessWidget {
   const TractianApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return CupertinoApp(
       title: 'Tractian App',
-      home: Scaffold(
-        body: Center(
-          child: const Text('Tractian'),
-        ),
-      ),
+      debugShowCheckedModeBanner: false,
+      home: HomePage(),
     );
   }
 }

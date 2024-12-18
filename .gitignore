@@ -46,6 +46,7 @@ app.*.map.json
 
 # FVM Version Cache
 .fvm/
+coverage/
 
 # In a production application, the following line would be uncommented.
 # env.json

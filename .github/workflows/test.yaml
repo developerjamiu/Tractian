@@ -1,0 +1,26 @@
+name: Analyze and Test our Flutter Project
+
+on:
+  pull_request:
+    branches:
+      - master
+      
+jobs:
+  analyze-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.27.1'
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Analyze the project
+        run: flutter analyze
+
+      - name: Run tests
+        run: flutter test

@@ -99,6 +99,8 @@ class AssetsView extends StatelessWidget {
           Expanded(
             child: Observer(
               builder: (context) {
+                final assetTree = assetsStore.filteredAssetTree;
+
                 if (assetsStore.state == AssetsStoreState.loading) {
                   return AppLoadingView();
                 } else if (assetsStore.state == AssetsStoreState.error) {
@@ -106,13 +108,13 @@ class AssetsView extends StatelessWidget {
                     errorMessage: assetsStore.errorMessage,
                     onRetry: assetsStore.initializeAssets,
                   );
-                } else if (assetsStore.filteredAssetTree.isEmpty) {
+                } else if (assetTree.isEmpty) {
                   return AppEmptyView(
                     title: 'assets',
                   );
                 } else {
                   return AssetsTreeView(
-                    rootNodes: assetsStore.filteredAssetTree,
+                    rootNodes: assetTree,
                   );
                 }
               },

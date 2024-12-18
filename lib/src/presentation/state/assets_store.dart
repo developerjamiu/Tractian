@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:mobx/mobx.dart';
 import 'package:tractian/src/core/exceptions/app_exception.dart';
 import 'package:tractian/src/data/models/asset.dart';
@@ -21,6 +23,8 @@ abstract class _AssetsStore with Store {
     required String companyId,
   })  : _tractionRepository = tractionRepository,
         _companyId = companyId;
+
+  Timer? _debounceTimer;
 
   @readonly
   AssetsStoreState _state = AssetsStoreState.initial;
@@ -184,7 +188,14 @@ abstract class _AssetsStore with Store {
   }
 
   @action
-  void searchAssets(String query) => _searchQuery = query;
+  void searchAssets(String query) {
+    _debounceTimer?.cancel();
+
+    _debounceTimer = Timer(
+      const Duration(milliseconds: 300),
+      () => _searchQuery = query,
+    );
+  }
 
   @action
   void toggleEnergySensor() => _isEnergySensor = !_isEnergySensor;
@@ -206,5 +217,9 @@ abstract class _AssetsStore with Store {
 
     _assets = assetsAndComponents.$1;
     _components = assetsAndComponents.$2;
+  }
+
+  void dispose() {
+    _debounceTimer?.cancel();
   }
 }

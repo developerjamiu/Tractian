@@ -6,7 +6,11 @@ import 'package:tractian/src/core/theme/app_colors.dart';
 import 'package:tractian/src/core/theme/app_typography.dart';
 import 'package:tractian/src/data/repositories/companies_repository.dart';
 import 'package:tractian/src/presentation/state/assets_store.dart';
-import 'package:tractian/src/presentation/widgets/tree_node_widget.dart';
+import 'package:tractian/src/presentation/widgets/app_empty_view.dart';
+import 'package:tractian/src/presentation/widgets/app_error_view.dart';
+import 'package:tractian/src/presentation/widgets/app_loading_view.dart';
+import 'package:tractian/src/presentation/widgets/asset_filter.dart';
+import 'package:tractian/src/presentation/widgets/assets_tree_view.dart';
 
 class AssetsPage extends StatelessWidget {
   const AssetsPage({
@@ -40,7 +44,7 @@ class AssetsView extends StatelessWidget {
         automaticBackgroundVisibility: false,
         backgroundColor: AppColors.darkBlue,
         leading: IconButton(
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: Navigator.of(context).pop,
           icon: Icon(
             CupertinoIcons.chevron_back,
             color: AppColors.white,
@@ -51,25 +55,70 @@ class AssetsView extends StatelessWidget {
           style: AppTypography.title,
         ),
       ),
-      child: Observer(
-        builder: (context) {
-          if (assetsStore.state == AssetsStoreState.loading) {
-            return Center(
-              child: CupertinoActivityIndicator(),
-            );
-          }
-
-          final rootNodes = assetsStore.assetTree;
-
-          return ListView.builder(
-            itemCount: rootNodes.length,
-            itemBuilder: (context, index) {
-              return TreeNodeWidget(
-                node: rootNodes[index],
-              );
-            },
-          );
-        },
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CupertinoSearchTextField(
+                  placeholder: 'Buscar Ativo ou Local',
+                  onChanged: assetsStore.searchAssets,
+                ),
+                SizedBox(height: 8),
+                Observer(
+                  builder: (context) {
+                    return Row(
+                      children: [
+                        AssetFilter(
+                          assetName: 'energy.svg',
+                          title: 'Sensor de Energia',
+                          isSelected: assetsStore.isEnergySensor,
+                          onTap: assetsStore.toggleEnergySensor,
+                        ),
+                        SizedBox(width: 8),
+                        AssetFilter(
+                          assetName: 'criticio.svg',
+                          title: 'Crítico',
+                          isSelected: assetsStore.isCritical,
+                          onTap: assetsStore.toggleCritical,
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+          Divider(
+            height: 0,
+            color: AppColors.lightGray,
+          ),
+          Expanded(
+            child: Observer(
+              builder: (context) {
+                if (assetsStore.state == AssetsStoreState.loading) {
+                  return AppLoadingView();
+                } else if (assetsStore.state == AssetsStoreState.error) {
+                  return AppErrorView(
+                    errorMessage: assetsStore.errorMessage,
+                    onRetry: assetsStore.initializeAssets,
+                  );
+                } else if (assetsStore.filteredAssetTree.isEmpty) {
+                  return AppEmptyView(
+                    title: 'assets',
+                  );
+                } else {
+                  return AssetsTreeView(
+                    rootNodes: assetsStore.filteredAssetTree,
+                  );
+                }
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

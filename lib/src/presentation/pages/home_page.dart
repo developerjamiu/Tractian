@@ -5,10 +5,10 @@ import 'package:tractian/src/core/theme/app_colors.dart';
 import 'package:tractian/src/data/repositories/companies_repository.dart';
 import 'package:tractian/src/presentation/state/companies_store.dart';
 import 'package:tractian/src/presentation/widgets/app_images.dart';
-import 'package:tractian/src/presentation/widgets/companies_empty_view.dart';
-import 'package:tractian/src/presentation/widgets/companies_error_view.dart';
+import 'package:tractian/src/presentation/widgets/app_empty_view.dart';
+import 'package:tractian/src/presentation/widgets/app_error_view.dart';
 import 'package:tractian/src/presentation/widgets/companies_list_view.dart';
-import 'package:tractian/src/presentation/widgets/companies_loading_view.dart';
+import 'package:tractian/src/presentation/widgets/app_loading_view.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -42,14 +42,16 @@ class HomeView extends StatelessWidget {
       child: Observer(
         builder: (context) {
           if (companiesStore.state == CompaniesStoreState.loading) {
-            return CompaniesLoadingView();
+            return AppLoadingView();
           } else if (companiesStore.state == CompaniesStoreState.error) {
-            return CompaniesErrorView(
+            return AppErrorView(
               errorMessage: companiesStore.errorMessage,
               onRetry: companiesStore.fetchCompanies,
             );
           } else if (companiesStore.companies.isEmpty) {
-            return CompaniesEmptyView();
+            return AppEmptyView(
+              title: 'companies',
+            );
           } else {
             return CompaniesListView(
               companies: companiesStore.companies,

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-class CompaniesErrorView extends StatelessWidget {
-  const CompaniesErrorView({
+class AppErrorView extends StatelessWidget {
+  const AppErrorView({
     super.key,
     required this.errorMessage,
     required this.onRetry,

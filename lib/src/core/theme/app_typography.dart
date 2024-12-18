@@ -13,4 +13,10 @@ class AppTypography {
   static const body = TextStyle(
     fontSize: 14,
   );
+
+  static const body2 = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    color: AppColors.text,
+  );
 }

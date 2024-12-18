@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tractian/src/core/theme/app_typography.dart';
+import 'package:tractian/src/data/models/component.dart';
 import 'package:tractian/src/data/models/tree_node.dart';
 import 'package:tractian/src/presentation/widgets/app_images.dart';
 
@@ -18,10 +19,12 @@ class TreeNodeWidget extends StatefulWidget {
 class _TreeNodeWidgetState extends State<TreeNodeWidget> {
   late bool isExpanded =
       widget.node.isExpanded && widget.node.children.length < 4;
-  late final node = widget.node;
 
   @override
   Widget build(BuildContext context) {
+    final node = widget.node;
+    final status = node.status;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -44,6 +47,13 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                   node.name,
                   style: AppTypography.body,
                 ),
+                if (status == Status.operating) ...[
+                  SizedBox(width: 6),
+                  AppImages.operating(),
+                ] else if (status == Status.alert) ...[
+                  SizedBox(width: 6),
+                  AppImages.critical(),
+                ],
               ],
             ),
           ),
@@ -56,6 +66,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: node.children.length,
               itemBuilder: (context, index) => TreeNodeWidget(
+                key: ValueKey(node.id),
                 node: node.children[index],
               ),
             ),
@@ -63,18 +74,18 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
       ],
     );
   }
-}
 
-Widget getIcon(NodeType nodeType) {
-  switch (nodeType) {
-    case NodeType.location:
-      return AppImages.location();
-    case NodeType.asset:
-      return AppImages.asset();
-    case NodeType.component:
-      return AppImages.component(
-        height: 22,
-        width: 22,
-      );
+  Widget getIcon(NodeType nodeType) {
+    switch (nodeType) {
+      case NodeType.location:
+        return AppImages.location();
+      case NodeType.asset:
+        return AppImages.asset();
+      case NodeType.component:
+        return AppImages.component(
+          height: 22,
+          width: 22,
+        );
+    }
   }
 }

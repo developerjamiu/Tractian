@@ -6,17 +6,20 @@ class AppImages extends StatelessWidget {
   final double? width;
   final double? height;
   final BoxFit fit;
+  final Color? color;
 
   const AppImages._({
     required this.assetName,
     this.width,
     this.height,
     this.fit = BoxFit.cover,
+    this.color,
   });
 
   @override
   Widget build(BuildContext context) {
     final key = Key('AppImage-$assetName');
+    final color = this.color;
 
     if (assetName.endsWith('.svg')) {
       return SvgPicture.asset(
@@ -25,6 +28,8 @@ class AppImages extends StatelessWidget {
         width: width,
         height: height,
         fit: fit,
+        colorFilter:
+            color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
       );
     }
 
@@ -34,6 +39,7 @@ class AppImages extends StatelessWidget {
       height: height,
       key: key,
       fit: fit,
+      color: color,
     );
   }
 
@@ -41,11 +47,13 @@ class AppImages extends StatelessWidget {
     required String name,
     double? width,
     double? height,
+    Color? color,
   }) =>
       AppImages._(
         assetName: name,
         width: width,
         height: height,
+        color: color,
       );
 
   factory AppImages.asset({
@@ -84,6 +92,42 @@ class AppImages extends StatelessWidget {
         fit: fit,
       );
 
+  factory AppImages.critical({
+    double? width,
+    double? height,
+    BoxFit fit = BoxFit.cover,
+  }) =>
+      AppImages._(
+        assetName: 'critical.svg',
+        width: width,
+        height: height,
+        fit: fit,
+      );
+
+  factory AppImages.criticio({
+    double? width,
+    double? height,
+    BoxFit fit = BoxFit.cover,
+  }) =>
+      AppImages._(
+        assetName: 'criticio.svg',
+        width: width,
+        height: height,
+        fit: fit,
+      );
+
+  factory AppImages.energy({
+    double? width,
+    double? height,
+    BoxFit fit = BoxFit.cover,
+  }) =>
+      AppImages._(
+        assetName: 'energy.svg',
+        width: width,
+        height: height,
+        fit: fit,
+      );
+
   factory AppImages.location({
     double? width,
     double? height,
@@ -91,6 +135,18 @@ class AppImages extends StatelessWidget {
   }) =>
       AppImages._(
         assetName: 'location.svg',
+        width: width,
+        height: height,
+        fit: fit,
+      );
+
+  factory AppImages.operating({
+    double? width,
+    double? height,
+    BoxFit fit = BoxFit.cover,
+  }) =>
+      AppImages._(
+        assetName: 'operating.svg',
         width: width,
         height: height,
         fit: fit,

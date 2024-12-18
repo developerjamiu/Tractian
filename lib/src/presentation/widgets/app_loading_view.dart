@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-class CompaniesLoadingView extends StatelessWidget {
-  const CompaniesLoadingView({super.key});
+class AppLoadingView extends StatelessWidget {
+  const AppLoadingView({super.key});
 
   @override
   Widget build(BuildContext context) {

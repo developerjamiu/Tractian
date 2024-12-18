@@ -26,16 +26,71 @@ abstract class _AssetsStore with Store {
   AssetsStoreState _state = AssetsStoreState.initial;
 
   @readonly
-  List<Location> _locations = [];
+  String _searchQuery = '';
 
   @readonly
-  List<Asset> _assets = [];
+  Iterable<Location> _locations = [];
 
   @readonly
-  List<Component> _components = [];
+  Iterable<Asset> _assets = [];
+
+  @readonly
+  Iterable<Component> _components = [];
 
   @readonly
   String? _errorMessage;
+
+  @readonly
+  bool _isEnergySensor = false;
+
+  @readonly
+  bool _isCritical = false;
+
+  @computed
+  List<TreeNode> get filteredAssetTree => search(assetTree, _searchQuery);
+
+  List<TreeNode> search(List<TreeNode> nodes, String query) {
+    final Set<TreeNode> results = {};
+
+    for (final node in nodes) {
+      final res = search(node.children, query);
+
+      final isEnergySensor =
+          !_isEnergySensor || node.sensorType == SensorType.energy;
+
+      final isCritical = !_isCritical || node.status == Status.alert;
+
+      if (res.isNotEmpty) {
+        results.add(
+          TreeNode(
+            id: node.id,
+            name: node.name,
+            type: node.type,
+            children: res.isNotEmpty ? res : node.children,
+            isExpanded: node.isExpanded,
+            sensorType: node.sensorType,
+            status: node.status,
+          ),
+        );
+      } else if (node.name.toLowerCase().contains(query.toLowerCase()) &&
+          isEnergySensor &&
+          isCritical) {
+        results.add(
+          TreeNode(
+            id: node.id,
+            name: node.name,
+            type: node.type,
+            children: [],
+            isExpanded: node.isExpanded,
+            sensorType: node.sensorType,
+            status: node.status,
+          ),
+        );
+      }
+    }
+
+    return results.toList();
+  }
 
   @computed
   List<TreeNode> get assetTree {
@@ -82,6 +137,8 @@ abstract class _AssetsStore with Store {
         id: component.id,
         name: component.name,
         type: NodeType.component,
+        sensorType: component.sensorType,
+        status: component.status,
       );
 
       if (component.parentId != null) {
@@ -89,6 +146,8 @@ abstract class _AssetsStore with Store {
           assetNodes[component.parentId]?.addChild(node);
         } else if (locationNodes.containsKey(component.parentId)) {
           locationNodes[component.parentId]?.addChild(node);
+        } else if (locationNodes.containsKey(component.locationId)) {
+          locationNodes[component.locationId]?.addChild(node);
         }
       } else {
         otherRootNodes.add(node);
@@ -123,6 +182,15 @@ abstract class _AssetsStore with Store {
       _errorMessage = error.message;
     }
   }
+
+  @action
+  void searchAssets(String query) => _searchQuery = query;
+
+  @action
+  void toggleEnergySensor() => _isEnergySensor = !_isEnergySensor;
+
+  @action
+  void toggleCritical() => _isCritical = !_isCritical;
 
   Future<void> fetchCompanyLocation() async {
     _locations = await _companiesRepository.getCompanyLocations(

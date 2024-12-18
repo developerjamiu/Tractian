@@ -26,7 +26,7 @@ class Component {
   final String? parentId;
   final String? locationId;
 
-  Component({
+  const Component({
     required this.id,
     required this.name,
     required this.sensorType,

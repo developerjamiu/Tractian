@@ -4,7 +4,7 @@ class Asset {
   final String? locationId;
   final String? parentId;
 
-  Asset({
+  const Asset({
     required this.id,
     required this.name,
     this.locationId,

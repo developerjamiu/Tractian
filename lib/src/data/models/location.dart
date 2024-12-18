@@ -3,7 +3,7 @@ class Location {
   final String name;
   final String? parentId;
 
-  Location({
+  const Location({
     required this.id,
     required this.name,
     this.parentId,

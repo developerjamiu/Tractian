@@ -2,7 +2,7 @@ class Company {
   final String id;
   final String name;
 
-  Company({
+  const Company({
     required this.id,
     required this.name,
   });

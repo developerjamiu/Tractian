@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tractian/src/data/models/company.dart';
+import 'package:tractian/src/presentation/pages/assets_page.dart';
 import 'package:tractian/src/presentation/widgets/company_list_item.dart';
 
 class CompaniesListView extends StatelessWidget {
@@ -21,6 +22,13 @@ class CompaniesListView extends StatelessWidget {
       itemCount: companies.length,
       itemBuilder: (context, index) => CompanyListItem(
         companyName: companies[index].name,
+        onTap: () => Navigator.of(context).push(
+          CupertinoPageRoute(
+            builder: (context) => AssetsPage(
+              companyId: companies[index].id,
+            ),
+          ),
+        ),
       ),
     );
   }

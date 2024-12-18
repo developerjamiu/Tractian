@@ -48,6 +48,18 @@ class AppImages extends StatelessWidget {
         height: height,
       );
 
+  factory AppImages.asset({
+    double? width,
+    double? height,
+    BoxFit fit = BoxFit.cover,
+  }) =>
+      AppImages._(
+        assetName: 'asset.svg',
+        width: width,
+        height: height,
+        fit: fit,
+      );
+
   factory AppImages.company({
     double? width,
     double? height,
@@ -60,6 +72,30 @@ class AppImages extends StatelessWidget {
         fit: fit,
       );
 
+  factory AppImages.component({
+    double? width,
+    double? height,
+    BoxFit fit = BoxFit.cover,
+  }) =>
+      AppImages._(
+        assetName: 'component.png',
+        width: width,
+        height: height,
+        fit: fit,
+      );
+
+  factory AppImages.location({
+    double? width,
+    double? height,
+    BoxFit fit = BoxFit.cover,
+  }) =>
+      AppImages._(
+        assetName: 'location.svg',
+        width: width,
+        height: height,
+        fit: fit,
+      );
+
   factory AppImages.tractianLogo({
     double? width,
     double? height,
@@ -67,6 +103,18 @@ class AppImages extends StatelessWidget {
   }) =>
       AppImages._(
         assetName: 'tractian_logo.svg',
+        width: width,
+        height: height,
+        fit: fit,
+      );
+
+  factory AppImages.treeSwitcher({
+    double? width,
+    double? height,
+    BoxFit fit = BoxFit.cover,
+  }) =>
+      AppImages._(
+        assetName: 'tree_switcher.svg',
         width: width,
         height: height,
         fit: fit,

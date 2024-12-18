@@ -9,4 +9,8 @@ class AppTypography {
     fontWeight: FontWeight.w500,
     color: AppColors.white,
   );
+
+  static const body = TextStyle(
+    fontSize: 14,
+  );
 }

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import 'package:tractian/src/data/repositories/companies_repository.dart';
+import 'package:tractian/src/data/repositories/traction_repository.dart';
 import 'package:tractian/src/presentation/pages/home_page.dart';
 
 import 'core/config/environment_config.dart';
@@ -20,8 +20,8 @@ class TractianApp extends StatelessWidget {
             ),
           ),
         ),
-        Provider<CompaniesRepository>(
-          create: (context) => CompaniesRepository(
+        Provider<TractionRepository>(
+          create: (context) => TractionRepository(
             client: context.read<Dio>(),
           ),
         ),

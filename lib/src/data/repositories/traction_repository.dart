@@ -5,8 +5,8 @@ import 'package:tractian/src/data/models/company.dart';
 import 'package:tractian/src/data/models/component.dart';
 import 'package:tractian/src/data/models/location.dart';
 
-class CompaniesRepository {
-  const CompaniesRepository({required Dio client}) : _client = client;
+class TractionRepository {
+  const TractionRepository({required Dio client}) : _client = client;
 
   final Dio _client;
 

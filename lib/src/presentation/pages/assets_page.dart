@@ -4,7 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:tractian/src/core/theme/app_colors.dart';
 import 'package:tractian/src/core/theme/app_typography.dart';
-import 'package:tractian/src/data/repositories/companies_repository.dart';
+import 'package:tractian/src/data/repositories/traction_repository.dart';
 import 'package:tractian/src/presentation/state/assets_store.dart';
 import 'package:tractian/src/presentation/widgets/app_empty_view.dart';
 import 'package:tractian/src/presentation/widgets/app_error_view.dart';
@@ -24,7 +24,7 @@ class AssetsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Provider<AssetsStore>(
       create: (context) => AssetsStore(
-        companiesRepository: context.read<CompaniesRepository>(),
+        tractionRepository: context.read<TractionRepository>(),
         companyId: companyId,
       )..initializeAssets(),
       child: AssetsView(),

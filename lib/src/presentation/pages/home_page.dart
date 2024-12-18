@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:tractian/src/core/theme/app_colors.dart';
-import 'package:tractian/src/data/repositories/companies_repository.dart';
+import 'package:tractian/src/data/repositories/traction_repository.dart';
 import 'package:tractian/src/presentation/state/companies_store.dart';
 import 'package:tractian/src/presentation/widgets/app_images.dart';
 import 'package:tractian/src/presentation/widgets/app_empty_view.dart';
@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Provider<CompaniesStore>(
       create: (context) => CompaniesStore(
-        companiesRepository: context.read<CompaniesRepository>(),
+        tractionRepository: context.read<TractionRepository>(),
       )..fetchCompanies(),
       child: HomeView(),
     );

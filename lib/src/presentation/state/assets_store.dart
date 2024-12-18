@@ -4,7 +4,7 @@ import 'package:tractian/src/data/models/asset.dart';
 import 'package:tractian/src/data/models/component.dart';
 import 'package:tractian/src/data/models/location.dart';
 import 'package:tractian/src/data/models/tree_node.dart';
-import 'package:tractian/src/data/repositories/companies_repository.dart';
+import 'package:tractian/src/data/repositories/traction_repository.dart';
 
 part 'assets_store.g.dart';
 
@@ -13,13 +13,13 @@ enum AssetsStoreState { initial, loading, loaded, error }
 class AssetsStore = _AssetsStore with _$AssetsStore;
 
 abstract class _AssetsStore with Store {
-  final CompaniesRepository _companiesRepository;
+  final TractionRepository _tractionRepository;
   final String _companyId;
 
   _AssetsStore({
-    required CompaniesRepository companiesRepository,
+    required TractionRepository tractionRepository,
     required String companyId,
-  })  : _companiesRepository = companiesRepository,
+  })  : _tractionRepository = tractionRepository,
         _companyId = companyId;
 
   @readonly
@@ -193,14 +193,14 @@ abstract class _AssetsStore with Store {
   void toggleCritical() => _isCritical = !_isCritical;
 
   Future<void> fetchCompanyLocation() async {
-    _locations = await _companiesRepository.getCompanyLocations(
+    _locations = await _tractionRepository.getCompanyLocations(
       companyId: _companyId,
     );
   }
 
   Future<void> fetchCompanyAssets() async {
     final assetsAndComponents =
-        await _companiesRepository.getCompanyAssetsAndComponents(
+        await _tractionRepository.getCompanyAssetsAndComponents(
       companyId: _companyId,
     );
 

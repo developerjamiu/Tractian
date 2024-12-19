@@ -1,3 +1,35 @@
-# tractian
+# Tractian (Mobile App Challenge)
 
-Tractian Mobile Software Engineer Challenge
+## Description
+This application provides a dynamic Tree View representation of companies' assets, sub-assets, components, and locations. It visualizes hierarchical relationships and supports advanced filtering and navigation features, helping users explore assets efficiently.
+[See full instructions](https://github.com/tractian/challenges/blob/main/mobile/README.md)
+
+## Video Demo
+Coming soon
+
+## Improvements with More Time
+
+### Integration Tests
+- Add comprehensive integration tests to validate cross-layer communication and user flows.
+
+### Enhanced UI
+- Match Figma's design 1-to-1.
+- Add smooth animations for tree node expansion and filtering.
+
+### Cross-Platform Optimization
+- Test and enhance performance on web and desktop clients.
+
+## Technical Notes
+
+### Environment Variables
+- The env.json file is included in the repository for ease of testing.
+- In production, sensitive data would be passed securely through CI/CD pipelines or deployment environments.
+
+### Architectural Simplification
+- The app uses a single repository layer for data handling.
+- In a full-scale application, local and remote data sources would be separated, and the repository would consolidate data for the presentation layer.
+- The project also uses the flat feature layer approach
+  
+### Scalability
+- All tree nodes are initially expanded during testing to validate UI performance with large datasets.
+- Subtrees with more than 3 children remain collapsed (by default) for better usability.

@@ -33,3 +33,34 @@ Coming soon
 ### Scalability
 - All tree nodes are initially expanded during testing to validate UI performance with large datasets.
 - Subtrees with more than 3 children remain collapsed (by default) for better usability.
+
+## Setup and Running the Project
+
+### Prerequisites
+- Flutter SDK installed (instructions)
+- A code editor such as VS Code or Android Studio.
+
+### Steps
+- Clone the repository:
+```
+git clone git@github.com:developerjamiu/Tractian.git
+cd tractian
+```
+
+- Install dependencies:
+```
+flutter pub get
+```
+
+- Set up environment variables:
+Modify the env.json file to include necessary configurations (tractianApiHost).
+The provided launch configuration assumes env.json is located in the project root.
+
+- Launch the app using VS Code:
+Run the project by selecting Launch Development in the debug configuration.
+
+Alternatively, use the command line:
+
+```
+flutter run --dart-define-from-file=env.json
+```

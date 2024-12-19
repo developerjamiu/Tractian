@@ -41,25 +41,25 @@ Coming soon
 - A code editor such as VS Code or Android Studio.
 
 ### Steps
-- Clone the repository:
+#### Clone the repository:
 ```
 git clone git@github.com:developerjamiu/Tractian.git
 cd tractian
 ```
 
-- Install dependencies:
+#### Install dependencies:
 ```
 flutter pub get
 ```
 
-- Set up environment variables:
-Modify the env.json file to include necessary configurations (tractianApiHost).
-The provided launch configuration assumes env.json is located in the project root.
+#### Set up environment variables:
+- Modify the env.json file to include necessary configurations (tractianApiHost).
+- The provided launch configuration assumes env.json is located in the project root.
 
-- Launch the app using VS Code:
-Run the project by selecting Launch Development in the debug configuration.
+#### Launch the app using VS Code:
+- Run the project by selecting Launch Development in the debug configuration.
 
-Alternatively, use the command line:
+#### Alternatively, use the command line:
 
 ```
 flutter run --dart-define-from-file=env.json

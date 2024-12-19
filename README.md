@@ -5,7 +5,7 @@ This application provides a dynamic Tree View representation of companies' asset
 [See full instructions](https://github.com/tractian/challenges/blob/main/mobile/README.md)
 
 ## Video Demo
-Coming soon
+https://github.com/user-attachments/assets/00937241-77bf-47c3-b434-54311cc8fa3e
 
 ## Improvements with More Time
 
